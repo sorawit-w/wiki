@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Web development defaults — private skill reference</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600&family=Geist:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FAF8F4; --surface:#FFFDF9; --text:#1A1A1A; --secondary:#3D3A36; --muted:#71695B;
+  --accent:#B0532F; --structure:#4A4F5A; --border:#E6DFD4;
+  --display:"Schibsted Grotesk",sans-serif; --body:"Geist",sans-serif; --mono:"JetBrains Mono",monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:16px;line-height:1.65}
+.wrap{max-width:860px;margin:0 auto;padding:56px 28px 80px}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline;text-underline-offset:3px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--structure);display:flex;align-items:center;gap:8px}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block}
+h1{font-family:var(--display);font-weight:600;font-size:40px;line-height:1.15;margin:14px 0 10px;letter-spacing:-.01em}
+.lede{color:var(--secondary);font-size:17px;max-width:620px}
+.meta{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:18px}
+nav.toc{margin:40px 0 8px;padding:20px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+nav.toc ol{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:6px 28px;counter-reset:toc}
+nav.toc li{counter-increment:toc;font-size:14px}
+nav.toc li::before{content:counter(toc,decimal-leading-zero);font-family:var(--mono);font-size:11px;color:var(--muted);margin-right:10px}
+nav.toc a{color:var(--secondary)}
+nav.toc a:hover{color:var(--accent)}
+section{margin-top:64px}
+.secnum{font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--structure)}
+h2{font-family:var(--display);font-weight:500;font-size:26px;margin:6px 0 6px}
+h2::after{content:"";display:block;width:28px;height:2px;background:var(--accent);margin-top:10px}
+h3{font-family:var(--display);font-weight:500;font-size:18px;margin:30px 0 10px;color:var(--text)}
+p{margin:12px 0;color:var(--secondary);max-width:680px}
+ul,ol{margin:12px 0 12px 22px;color:var(--secondary);max-width:680px}
+li{margin:7px 0}
+li::marker{color:var(--muted)}
+strong{font-weight:500;color:var(--text)}
+code{font-family:var(--mono);font-size:.85em;color:var(--structure);background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:1px 6px;white-space:nowrap}
+.tablewrap{overflow-x:auto;margin:16px 0}
+table{border-collapse:collapse;width:100%;font-size:14.5px;background:var(--surface);border:1px solid var(--border)}
+th{font-family:var(--mono);font-weight:500;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);text-align:left;padding:10px 14px;border-bottom:1px solid var(--border)}
+td{padding:11px 14px;border-bottom:1px solid var(--border);color:var(--secondary);vertical-align:top}
+tr:last-child td{border-bottom:none}
+td:first-child{color:var(--text)}
+.note{border:1px solid var(--border);background:var(--surface);border-radius:6px;padding:14px 18px;margin:18px 0;max-width:680px}
+.note .tag{font-family:var(--mono);font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--structure);display:block;margin-bottom:6px}
+ol.steps{list-style:none;margin-left:0;counter-reset:step}
+ol.steps>li{counter-increment:step;display:grid;grid-template-columns:34px 1fr;gap:14px;padding:12px 0;border-bottom:1px solid var(--border)}
+ol.steps>li:last-child{border-bottom:none}
+ol.steps>li::before{content:counter(step,decimal-leading-zero);font-family:var(--mono);font-size:13px;color:var(--structure);padding-top:2px}
+ol.rules{list-style:none;margin-left:0;counter-reset:rule}
+ol.rules>li{counter-increment:rule;display:grid;grid-template-columns:34px 1fr;gap:14px;padding:10px 0}
+ol.rules>li::before{content:"R" counter(rule);font-family:var(--mono);font-size:13px;color:var(--structure);padding-top:2px}
+.cols2{display:grid;grid-template-columns:1fr 1fr;gap:28px;max-width:760px}
+@media(max-width:640px){.cols2{grid-template-columns:1fr}h1{font-size:32px}}
+figure{margin:24px 0}
+figcaption{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:10px}
+footer{margin-top:80px;padding-top:22px;border-top:1px solid var(--border);font-family:var(--mono);font-size:12px;color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.small{font-size:14px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="eyebrow"><span class="dot" aria-hidden="true"></span>SKILL &middot; PRIVATE &middot; webdev-defaults</div>
+  <h1>Web development defaults</h1>
+  <p class="lede">Kiang&rsquo;s default conventions for web development: stack, services, and skill routing. Deliberately opinionated &mdash; this skill is the source of truth for these defaults. Never published.</p>
+  <div class="meta">v1.0.0 &middot; 2026-07-06 &middot; installs to ~/.claude/skills/webdev-defaults/</div>
+</header>
+
+<nav class="toc" aria-label="Contents">
+  <ol>
+    <li><a href="#usage">Using this skill</a></li>
+    <li><a href="#scope">Scope &amp; precedence</a></li>
+    <li><a href="#availability">Skill availability rule</a></li>
+    <li><a href="#stack">Default stack</a></li>
+    <li><a href="#services">Default services</a></li>
+    <li><a href="#init">Repo initialization</a></li>
+    <li><a href="#routing">Skill routing</a></li>
+    <li><a href="#conventions">Cross-cutting conventions</a></li>
+    <li><a href="#maintenance">Maintenance</a></li>
+  </ol>
+</nav>
+
+<section id="usage">
+  <div class="secnum">01</div>
+  <h2>Using this skill</h2>
+  <p>Skills load in three levels of progressive disclosure. Only the first level is always present; the rest arrives on demand.</p>
+  <div class="tablewrap"><table>
+    <tr><th>Level</th><th>What</th><th>When it&rsquo;s in context</th></tr>
+    <tr><td>Metadata</td><td>Name + description (~150 tokens)</td><td>Every session, always &mdash; this is the trigger surface</td></tr>
+    <tr><td>Body</td><td>Full SKILL.md (this document&rsquo;s content)</td><td>Loaded when a matching decision moment triggers it</td></tr>
+    <tr><td>Resources</td><td>Bundled reference files</td><td>On demand (this skill bundles none)</td></tr>
+  </table></div>
+
+  <h3>Lifecycle in a session</h3>
+  <figure>
+    <svg width="100%" viewBox="0 0 760 208" role="img" style="display:block">
+      <title>Skill lifecycle in a session</title>
+      <desc>Four stages: session start with metadata only, trigger loading the body, compaction summarizing it, after which the file remains re-readable. A dashed return path shows re-triggering.</desc>
+      <defs><marker id="chev" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+      <text x="92" y="30" text-anchor="middle" font-family="JetBrains Mono" font-size="10" letter-spacing="1" fill="#71695B">STAGE 1</text>
+      <text x="284" y="30" text-anchor="middle" font-family="JetBrains Mono" font-size="10" letter-spacing="1" fill="#71695B">STAGE 2</text>
+      <text x="476" y="30" text-anchor="middle" font-family="JetBrains Mono" font-size="10" letter-spacing="1" fill="#71695B">STAGE 3</text>
+      <text x="668" y="30" text-anchor="middle" font-family="JetBrains Mono" font-size="10" letter-spacing="1" fill="#71695B">STAGE 4</text>
+      <rect x="14" y="44" width="156" height="64" rx="6" fill="#FFFDF9" stroke="#4A4F5A" stroke-width="1"/>
+      <text x="92" y="72" text-anchor="middle" font-family="Geist" font-size="14" font-weight="500" fill="#1A1A1A">Session start</text>
+      <text x="92" y="92" text-anchor="middle" font-family="Geist" font-size="12" fill="#71695B">metadata only</text>
+      <line x1="176" y1="76" x2="198" y2="76" stroke="#4A4F5A" stroke-width="1" marker-end="url(#chev)"/>
+      <rect x="206" y="44" width="156" height="64" rx="6" fill="#FFFDF9" stroke="#4A4F5A" stroke-width="1"/>
+      <circle cx="220" cy="58" r="3.5" fill="#B0532F"/>
+      <text x="284" y="72" text-anchor="middle" font-family="Geist" font-size="14" font-weight="500" fill="#1A1A1A">Trigger</text>
+      <text x="284" y="92" text-anchor="middle" font-family="Geist" font-size="12" fill="#71695B">body in context</text>
+      <line x1="368" y1="76" x2="390" y2="76" stroke="#4A4F5A" stroke-width="1" marker-end="url(#chev)"/>
+      <rect x="398" y="44" width="156" height="64" rx="6" fill="#FFFDF9" stroke="#4A4F5A" stroke-width="1"/>
+      <text x="476" y="72" text-anchor="middle" font-family="Geist" font-size="14" font-weight="500" fill="#1A1A1A">Compaction</text>
+      <text x="476" y="92" text-anchor="middle" font-family="Geist" font-size="12" fill="#71695B">body may drop</text>
+      <line x1="560" y1="76" x2="582" y2="76" stroke="#4A4F5A" stroke-width="1" marker-end="url(#chev)"/>
+      <rect x="590" y="44" width="156" height="64" rx="6" fill="#FFFDF9" stroke="#4A4F5A" stroke-width="1"/>
+      <text x="668" y="72" text-anchor="middle" font-family="Geist" font-size="14" font-weight="500" fill="#1A1A1A">After</text>
+      <text x="668" y="92" text-anchor="middle" font-family="Geist" font-size="12" fill="#71695B">re-read from disk</text>
+      <path d="M668 108 V148 H284 V118" fill="none" stroke="#4A4F5A" stroke-width="1" stroke-dasharray="4 4" marker-end="url(#chev)"/>
+      <text x="476" y="176" text-anchor="middle" font-family="Geist" font-size="12" fill="#71695B">re-triggered at the next matching decision moment</text>
+    </svg>
+    <figcaption>fig. 1 &mdash; where the skill lives across a session &middot; &#9679; = full influence starts here</figcaption>
+  </figure>
+  <ul>
+    <li><strong>The description is permanent.</strong> It survives compaction and is what re-summons the skill &mdash; which is why it carries all triggering logic, positive and negative.</li>
+    <li><strong>The body is in mind verbatim until compaction</strong> &mdash; but its grip fades as the session grows, even before compaction. Instructions buried far back get followed less reliably.</li>
+    <li><strong>After compaction, expect the gist, not the letter.</strong> The summary may keep &ldquo;Railway, Clerk, one design skill&rdquo; and drop the decision order. Recovery costs one file read.</li>
+    <li><strong>Durability lives in files, not context.</strong> Init step 5 writes every decision into the project&rsquo;s <code>CLAUDE.md</code>, which is re-injected fresh each session. The skill&rsquo;s memory is disposable because its outputs are durable.</li>
+  </ul>
+
+  <h3>When it loads &mdash; and when it stays out</h3>
+  <div class="cols2">
+    <div>
+      <div class="note"><span class="tag">Triggers</span>
+        <ul style="margin-left:18px">
+          <li>Starting or scaffolding a new web project or repo</li>
+          <li>Picking any stack layer or service</li>
+          <li>Repo initialization</li>
+          <li>Routing a webdev task to a skill, plugin, or role lens</li>
+          <li>Adding a new layer to an existing project (payments, admin app, AI feature)</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="note"><span class="tag">Stays out</span>
+        <ul style="margin-left:18px">
+          <li>Bugfixes, refactors, or feature work in an initialized repo &mdash; its choices live in the project <code>CLAUDE.md</code></li>
+          <li>General how-to coding questions</li>
+          <li>Non-web projects</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <p class="small">If a rule that matters starts drifting mid-session, one line fixes it: &ldquo;re-read webdev-defaults.&rdquo;</p>
+</section>
+
+<section id="scope">
+  <div class="secnum">02</div>
+  <h2>Scope &amp; precedence</h2>
+  <p>Applies to web development work &mdash; new projects, features, UI work, APIs &mdash; unless a more specific instruction overrides it. Priority order, highest wins:</p>
+  <ol class="steps">
+    <li><div>The user&rsquo;s live instruction in the current session</div></li>
+    <li><div>Project-local config (<code>CLAUDE.md</code> / <code>AGENTS.md</code> / <code>DESIGN.md</code> / kerby rulebooks, when present)</div></li>
+    <li><div>This skill</div></li>
+    <li><div>Individual skill defaults</div></li>
+  </ol>
+</section>
+
+<section id="availability">
+  <div class="secnum">03</div>
+  <h2>Skill availability rule</h2>
+  <p>Every skill named below is <strong>conditional on being installed in the current environment</strong>.</p>
+  <ul>
+    <li>Before invoking a skill, confirm it actually exists (skill list / plugin registry). Skill inventories drift between machines and sessions &mdash; never assume.</li>
+    <li>If a relevant skill is missing: do the work directly with best judgment, and mention in one line which skill would have applied. Don&rsquo;t block, don&rsquo;t degrade the task, don&rsquo;t nag.</li>
+    <li>Skills are accelerators, not dependencies.</li>
+    <li>Route by fit, not by novelty. If no skill genuinely fits the task, use none.</li>
+    <li>When two skills plausibly apply, pick <strong>one</strong> using the routing below &mdash; never stack overlapping skills on the same task.</li>
+  </ul>
+</section>
+
+<section id="stack">
+  <div class="secnum">04</div>
+  <h2>Default stack</h2>
+  <p><strong>This skill is the source of truth for stack defaults.</strong> New projects follow the table below; deviations require a named override factor (team expertise, compliance / data residency, ecosystem constraint, cost at scale, realtime needs) stated out loud.</p>
+  <div class="tablewrap"><table>
+    <tr><th>Layer</th><th>Default</th></tr>
+    <tr><td>Runtime / package manager</td><td>Bun</td></tr>
+    <tr><td>Frontend</td><td>SvelteKit (Svelte 5). Exception: Astro when the project is a <strong>simple marketing site and SEO is the priority</strong> &mdash; content-first, little app logic. Anything app-like stays SvelteKit.</td></tr>
+    <tr><td>API</td><td>Elysia + Eden RPC (end-to-end types)</td></tr>
+    <tr><td>Database</td><td>Neon (serverless Postgres)</td></tr>
+    <tr><td>ORM</td><td>Drizzle</td></tr>
+    <tr><td>Auth</td><td>Clerk</td></tr>
+    <tr><td>Styling</td><td>Tailwind + plain CSS; shadcn only when a component library earns its place</td></tr>
+    <tr><td>Icons</td><td>Font Awesome, latest major version</td></tr>
+    <tr><td>Local dev database</td><td>Postgres in Docker (Compose); Neon is the preview/production target, not the local loop</td></tr>
+    <tr><td>Monorepo</td><td>Bun workspaces (<code>apps/</code>, <code>packages/</code>). Standard apps: <code>web</code>, <code>api</code> (usually needed), <code>admin</code> (only if needed).</td></tr>
+  </table></div>
+  <ul>
+    <li><strong>Greenfield TS/JS project &rarr; this stack.</strong> If deviating, name the override factor out loud &mdash; never silently swap a layer.</li>
+    <li><strong>Existing repos: apply per piece.</strong> Adopt the default for any layer the repo lacks; skip each piece where the repo already made a different choice. Don&rsquo;t propose migrations unprompted.</li>
+    <li><strong>Scope rule:</strong> scaffold only the layers the task needs. A CLI, script, or library does not get a database, auth, and UI shell by default.</li>
+  </ul>
+</section>
+
+<section id="services">
+  <div class="secnum">05</div>
+  <h2>Default services</h2>
+  <div class="tablewrap"><table>
+    <tr><th>Concern</th><th>Default</th><th>Notes</th></tr>
+    <tr><td>VCS / PRs</td><td>GitHub</td><td>Feature branches + PRs.</td></tr>
+    <tr><td>Hosting / deploy</td><td>Railway</td><td></td></tr>
+    <tr><td>DNS</td><td>Cloudflare</td><td></td></tr>
+    <tr><td>Object storage</td><td>Cloudflare R2</td><td>Images and other user-facing assets.</td></tr>
+    <tr><td>Database</td><td>Neon (preview/production)</td><td>Serverless Postgres; DB branching for preview environments when useful. Local development runs Postgres in Docker.</td></tr>
+    <tr><td>Auth</td><td>Clerk</td><td>Compliance/self-hosting requirements are a veto &mdash; swap to a self-hostable provider when they apply.</td></tr>
+    <tr><td>AI / LLM gateway</td><td>OpenRouter</td><td>Default for AI features; select models per task through it.</td></tr>
+    <tr><td>Product analytics</td><td>PostHog</td><td>Wire events intentionally; no analytics scaffolding on throwaway prototypes.</td></tr>
+    <tr><td>Payments</td><td>Stripe or PayPal &mdash; <strong>only when the project actually needs payments</strong></td><td>Anything touching money flows: stop and confirm with the user before wiring it.</td></tr>
+    <tr><td>Error monitoring</td><td>Sentry, when connected</td><td>Don&rsquo;t add monitoring scaffolding to throwaway prototypes.</td></tr>
+  </table></div>
+  <h3>Service hygiene</h3>
+  <ul>
+    <li><strong>Env convention:</strong> one shared <code>.env</code> at the repo root for all workspace apps; <code>.env.local</code> for local-dev overrides (gitignored); <code>.env.example</code> committed with placeholder keys only.</li>
+    <li><strong>License gate: AGPL dependencies are a hard block.</strong> Check the license before adding any dependency; prefer MIT/Apache/BSD.</li>
+  </ul>
+</section>
+
+<section id="init">
+  <div class="secnum">06</div>
+  <h2>Repo initialization</h2>
+  <p>Every new repo gets this sequence after basic scaffolding (git + Bun workspace):</p>
+  <ol class="steps">
+    <li><div><code>kerby install swe</code> &mdash; installs the governance harness with the <code>swe</code> rulebook. After install, kerby still loads only on explicit invocation (rule R4).</div></li>
+    <li><div><code>codex:setup</code> &mdash; wires up the Codex companion plugin for this repo.</div></li>
+    <li><div><code>/impeccable init</code> &mdash; establishes impeccable&rsquo;s design workflow context, making it the incumbent (already-in-place) design system for the project.</div></li>
+    <li><div>Create the root env files per the env convention, then stand up the Docker Compose Postgres service from the stack table and point <code>.env.local</code> at it.</div></li>
+    <li><div><strong>Record the outcome:</strong> write this repo&rsquo;s actual stack, services, and any deviations from these defaults into the project&rsquo;s <code>CLAUDE.md</code>. From then on, sessions in that repo read the local record &mdash; this skill re-enters only when a <em>new</em> layer is added.</div></li>
+  </ol>
+  <div class="note"><span class="tag">Design system</span><code>DESIGN.md</code> is <strong>not</strong> auto-generated at init &mdash; it comes from the user running <code>agent-skills:brand-workshop</code> (see Design &amp; UI below).</div>
+</section>
+
+<section id="routing">
+  <div class="secnum">07</div>
+  <h2>Skill routing</h2>
+
+  <h3>Hard rules</h3>
+  <ol class="rules">
+    <li><div><strong>One design-language skill per surface.</strong> Never load <code>impeccable</code>, a <code>taste-skill:*</code> variant, and <code>ui-ux-pro-max</code> together on the same build &mdash; they are competing design systems and will fight each other.</div></li>
+    <li><div><strong>The project&rsquo;s <code>DESIGN.md</code> is canonical.</strong> Design skills execute and refine within it; they never override its tokens, fonts, or rules.</div></li>
+    <li><div><strong>Prefer the incumbent</strong> (the one already in use). Because <code>/impeccable init</code> runs at repo setup, the incumbent is impeccable unless the repo&rsquo;s artifacts say otherwise (<code>design-system/MASTER.md</code>, a taste-skill-styled codebase).</div></li>
+    <li><div><strong>kerby: installed at init, loaded on invocation only.</strong> <code>kerby install swe</code> is part of repo setup, but load it only on explicit mention (<code>kerby</code>, <code>/kerby</code>, load/audit requests) &mdash; never auto-load it for general coding tasks.</div></li>
+    <li><div><strong>Don&rsquo;t restate kerby.</strong> Implementation discipline (plan gate, test-first evidence, verdicts), secret scanning, <code>.env</code>-edit protection, protected branches, and destructive-git blocking all belong to kerby&rsquo;s <code>swe</code> rulebook and hooks. This skill routes around them &mdash; it never duplicates, re-specifies, or overrides them.</div></li>
+  </ol>
+
+  <h3>Project setup &amp; stack decisions</h3>
+  <div class="tablewrap"><table>
+    <tr><th>Situation</th><th>Skill</th></tr>
+    <tr><td>New project; picking any stack layer</td><td>This skill&rsquo;s stack + services tables &mdash; deviate only with a named override factor</td></tr>
+    <tr><td>Brainstorming / fuzzy requirements</td><td><code>agent-skills:team-composer</code> (preferred)</td></tr>
+    <tr><td>Turning an idea into a spec / PRD</td><td><code>product-management:write-spec</code></td></tr>
+    <tr><td>Architecture decision worth recording</td><td><code>engineering:architecture</code> (ADR)</td></tr>
+    <tr><td>Stress-testing a plan</td><td><code>codex:adversarial-review</code> (already hooked)</td></tr>
+  </table></div>
+  <p class="small">Plan shape and gating (Expected/Realized Outcomes, complexity threshold) belong to kerby&rsquo;s Plan Gate &mdash; don&rsquo;t layer another planning skill on top (rule R5).</p>
+
+  <h3>Design &amp; UI &mdash; decision order</h3>
+  <p>Work down this list; stop at the first match. Fallback when none of these are installed: Anthropic&rsquo;s <code>frontend-design</code>.</p>
+  <ol class="steps">
+    <li><div><strong><code>DESIGN.md</code> exists</strong> &rarr; follow it. Use <code>impeccable</code> as the working verb set (<code>shape</code> &rarr; <code>craft</code> &rarr; <code>critique</code> &rarr; <code>audit</code> &rarr; <code>polish</code>) to execute within that system.</div></li>
+    <li><div><strong><code>DESIGN.md</code> missing</strong> &rarr; stop and ask the user to run <code>agent-skills:brand-workshop</code> (it produces the starter <code>DESIGN.md</code>). Don&rsquo;t invent a brand, and don&rsquo;t substitute another generator. <code>ui-ux-pro-max</code> stays available on explicit request for a reasoned design-system exploration &mdash; its output gets reconciled into <code>DESIGN.md</code>, which remains the single source of truth.</div></li>
+    <li><div><strong>A specific visual direction is named</strong> &rarr; the matching <code>taste-skill:*</code> variant: <code>minimalist-ui</code>, <code>industrial-brutalist-ui</code>, <code>high-end-visual-design</code> (soft/premium), <code>gpt-taste</code> (strict GSAP/variance). General anti-slop default: <code>design-taste-frontend</code> (v2); pin <code>design-taste-frontend-v1</code> only for backward compatibility.</div></li>
+    <li><div><strong>Checking a UI page or component</strong> &rarr; <code>agent-skills:screenwright</code>, when it makes sense &mdash; when the surface warrants the render-verify loop (build, screenshot, a11y-audit, fix). Skip it for trivial tweaks.</div></li>
+    <li><div><strong>Redesigning an existing UI</strong> &rarr; <code>taste-skill:redesign-existing-projects</code>, or <code>/impeccable audit</code> &rarr; <code>polish</code> when the project already uses impeccable (R3: incumbent wins).</div></li>
+    <li><div><strong>Design-reference images before coding</strong> &rarr; <code>taste-skill:imagegen-frontend-web</code> / <code>imagegen-frontend-mobile</code> / <code>image-to-code</code> (image &rarr; analyze &rarr; implement).</div></li>
+  </ol>
+
+  <h3>Targeted design tasks</h3>
+  <p>Compatible with whichever system is active.</p>
+  <div class="tablewrap"><table>
+    <tr><th>Situation</th><th>Skill</th><th>Role lens (alternative)</th></tr>
+    <tr><td>Accessibility audit (WCAG AA)</td><td><code>design:accessibility-review</code>, or <code>/impeccable audit</code> if impeccable is active</td><td><code>@accessibility_specialist</code></td></tr>
+    <tr><td>Structured design feedback on a mockup/screen</td><td><code>design:design-critique</code></td><td><code>@senior_product_designer</code></td></tr>
+    <tr><td>Design-system audit / documentation / extension</td><td><code>design:design-system</code></td><td><code>@design_engineer</code></td></tr>
+    <tr><td>Dev handoff spec from a design</td><td><code>design:design-handoff</code></td><td><code>@design_engineer</code></td></tr>
+    <tr><td>Microcopy, error messages, empty states, CTAs</td><td><code>design:ux-copy</code></td><td><code>@senior_copywriter</code></td></tr>
+    <tr><td>Naming (features, components, products)</td><td>&mdash;</td><td><code>@naming_specialist</code></td></tr>
+    <tr><td>Truncated / placeholder-riddled output</td><td><code>taste-skill:full-output-enforcement</code></td><td>&mdash;</td></tr>
+    <tr><td>Brand identity from scratch (logo, tagline, starter DESIGN.md)</td><td><code>agent-skills:brand-workshop</code></td><td>&mdash; (runs its own panel)</td></tr>
+    <tr><td>Pixel-art assets</td><td><code>agent-skills:pixel-art</code></td><td>&mdash;</td></tr>
+  </table></div>
+  <p class="small">Role lenses come from <code>team-composer</code>&rsquo;s catalog (<code>references/role-personas.md</code>). Run a single lens via <code>agent-skills:wear-the-hat</code>; convene <code>agent-skills:team-composer</code> only when the task genuinely needs multiple perspectives. Choose <strong>one</strong> path per task &mdash; official skill or role lens, never both. Prefer the skill when its structured output is the deliverable; prefer the role lens when a persona&rsquo;s judgment and voice are what&rsquo;s needed.</p>
+
+  <h3>Build, debug &amp; code quality</h3>
+  <div class="tablewrap"><table>
+    <tr><th>Situation</th><th>Skill</th></tr>
+    <tr><td>Test strategy / coverage design</td><td><code>engineering:testing-strategy</code></td></tr>
+    <tr><td>Hard bug or performance regression</td><td><code>diagnose</code> (preferred), else <code>superpowers:systematic-debugging</code> / <code>engineering:debug</code> &mdash; pick one</td></tr>
+    <tr><td>&ldquo;Simplest thing that works&rdquo; pressure</td><td><code>ponytail</code> (lite/full/ultra); harvest deferred shortcuts with <code>ponytail-debt</code></td></tr>
+    <tr><td>Over-engineering hunt</td><td><code>ponytail-review</code> (diff) / <code>ponytail-audit</code> (whole repo)</td></tr>
+    <tr><td>Code review</td><td><code>codex:review</code> &mdash; already hooked before PR creation; don&rsquo;t stack another reviewer on top. Acting on received feedback: <code>superpowers:receiving-code-review</code></td></tr>
+    <tr><td>Isolated feature work</td><td><code>superpowers:using-git-worktrees</code></td></tr>
+    <tr><td>Technical writing (READMEs, runbooks, API docs)</td><td><code>engineering:documentation</code></td></tr>
+    <tr><td>Localization &mdash; all i18n, locale-file, and translation work</td><td><code>agent-skills:i18n</code> (default path)</td></tr>
+    <tr><td>Repo governance / conformance audit</td><td><code>kerby</code> &mdash; explicit invocation only (rule R4)</td></tr>
+  </table></div>
+
+  <h3>Review, QA &amp; shipping</h3>
+  <div class="tablewrap"><table>
+    <tr><th>Situation</th><th>Skill</th></tr>
+    <tr><td>Score a site or flow end-to-end in a real browser</td><td><code>qa:qa</code></td></tr>
+    <tr><td>Pre-deploy verification</td><td><code>engineering:deploy-checklist</code></td></tr>
+    <tr><td>Wrapping a dev branch (merge / PR / cleanup)</td><td><code>superpowers:finishing-a-development-branch</code></td></tr>
+  </table></div>
+
+  <h3>AI features</h3>
+  <div class="tablewrap"><table>
+    <tr><th>Situation</th><th>Skill</th></tr>
+    <tr><td>Pre-launch design review of an AI feature (trust, hallucination, provenance, injection)</td><td><code>agent-skills:ai-ux-review</code></td></tr>
+    <tr><td>Eval-rigor review (ground truth, cohorts, adversarial, drift)</td><td><code>agent-skills:ai-eval-review</code></td></tr>
+    <tr><td>Safety-first framing for AI product decisions</td><td><code>ai-safety-mindset</code></td></tr>
+    <tr><td>Should this feature be gamified at all</td><td><code>agent-skills:gamification-fit</code></td></tr>
+    <tr><td>Building an MCP server as part of the stack</td><td><code>mcp-builder</code></td></tr>
+  </table></div>
+
+  <h3>Thinking &amp; orchestration</h3>
+  <div class="tablewrap"><table>
+    <tr><th>Situation</th><th>Skill</th></tr>
+    <tr><td>Multi-perspective decision (architecture review, contested design call)</td><td><code>agent-skills:team-composer</code></td></tr>
+    <tr><td>One expert lens on a task</td><td><code>agent-skills:wear-the-hat</code></td></tr>
+    <tr><td>Parallelizable multi-step work (&gt;15 min, independent chunks)</td><td><code>agent-skills:sub-agent-coordinator</code>; <code>superpowers:dispatching-parallel-agents</code> for simple fan-out</td></tr>
+    <tr><td>Product/business layer (identity &rarr; canvas &rarr; tests &rarr; deck &rarr; grill &rarr; GTM)</td><td><code>agent-skills</code> startup pipeline &mdash; each step gates the next; never bypass gates</td></tr>
+    <tr><td>Writing or auditing a skill itself</td><td><code>skill-creator</code> (build/benchmark) / <code>agent-skills:skill-evaluator</code> (does the text land)</td></tr>
+  </table></div>
+</section>
+
+<section id="conventions">
+  <div class="secnum">08</div>
+  <h2>Cross-cutting conventions</h2>
+  <ul>
+    <li><strong>Cost-of-error gate (beyond kerby&rsquo;s hooks).</strong> kerby blocks destructive git; everything else irreversible &mdash; production deploys, data deletion, spending money, anything sent as the user &mdash; still requires a stop-and-ask.</li>
+    <li><strong>Failure-first on design calls.</strong> Name the default-but-wrong move before committing to an approach; skip for trivial tasks.</li>
+    <li><strong>Calculation policy.</strong> Anything involving money or multi-step math runs through a script, with code and raw output shown.</li>
+  </ul>
+</section>
+
+<section id="maintenance">
+  <div class="secnum">09</div>
+  <h2>Maintenance</h2>
+  <ul>
+    <li>When a skill&rsquo;s scope changes, only its routing line here should need updating &mdash; details live in each skill&rsquo;s own <code>SKILL.md</code>; kerby&rsquo;s rules live only in kerby (rule R5).</li>
+    <li>The stack and services tables are this skill&rsquo;s own opinion, reflecting 2026-era tooling &mdash; review them periodically; there is no upstream source to defer to.</li>
+    <li>Availability drift is expected. This skill must remain safe to load in an environment where none of the named plugins are installed.</li>
+    <li><strong>Private.</strong> Intentionally unpublished. Never copy it into the public <code>agent-skills</code> shelf, a handoff brief, or any shareable artifact.</li>
+  </ul>
+</section>
+
+<footer>
+  <span>webdev-defaults &middot; private &middot; never publish</span>
+  <span>rendered 2026-07-06 &middot; source of truth: SKILL.md</span>
+</footer>
+
+</div>
+</body>
+</html>
