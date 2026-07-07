@@ -1,0 +1,124 @@
+{
+  "env": {
+    "CLAUDE_CODE_DISABLE_ADAPTIVE_THINKING": "1",
+    "CLAUDE_CODE_EFFORT_LEVEL": "high"
+  },
+  "permissions": {
+    "allow": [
+      "Bash(rm .git/*.lock)",
+      "Bash(rm -f .git/**/*.lock)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/codex-pr-gate.sh",
+            "timeout": 10,
+            "statusMessage": "Codex PR gate"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+        ]
+      }
+    ]
+  },
+  "enabledPlugins": {
+    "claude-code-setup@claude-plugins-official": true,
+    "claude-md-management@claude-plugins-official": true,
+    "code-review@claude-plugins-official": true,
+    "code-simplifier@claude-plugins-official": true,
+    "commit-commands@claude-plugins-official": true,
+    "context7@claude-plugins-official": true,
+    "feature-dev@claude-plugins-official": true,
+    "figma@claude-plugins-official": true,
+    "firebase@claude-plugins-official": true,
+    "frontend-design@claude-plugins-official": true,
+    "github@claude-plugins-official": true,
+    "linear@claude-plugins-official": true,
+    "playground@claude-plugins-official": true,
+    "playwright@claude-plugins-official": true,
+    "posthog@claude-plugins-official": true,
+    "sentry@claude-plugins-official": true,
+    "stripe@claude-plugins-official": true,
+    "supabase@claude-plugins-official": true,
+    "vercel@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": true,
+    "claude-mem@thedotmack": true,
+    "superpowers@superpowers-marketplace": true,
+    "ui-ux-pro-max@ui-ux-pro-max-skill": true,
+    "warp@claude-code-warp": true,
+    "andrej-karpathy-skills@karpathy-skills": true,
+    "web-quality-skills@addy-web-quality-skills": true,
+    "modern-web-guidance@googlechrome": true,
+    "Notion@claude-plugins-official": true,
+    "socraticode@socraticode": true
+  },
+  "extraKnownMarketplaces": {
+    "ui-ux-pro-max-skill": {
+      "source": {
+        "source": "github",
+        "repo": "nextlevelbuilder/ui-ux-pro-max-skill"
+      }
+    },
+    "claude-code-warp": {
+      "source": {
+        "source": "github",
+        "repo": "warpdotdev/claude-code-warp"
+      }
+    },
+    "sorawit-w": {
+      "source": {
+        "source": "github",
+        "repo": "sorawit-w/agent-skills"
+      }
+    },
+    "addy-agent-skills": {
+      "source": {
+        "source": "github",
+        "repo": "addyosmani/agent-skills"
+      }
+    },
+    "karpathy-skills": {
+      "source": {
+        "source": "git",
+        "url": "https://github.com/multica-ai/andrej-karpathy-skills.git"
+      }
+    },
+    "addy-web-quality-skills": {
+      "source": {
+        "source": "git",
+        "url": "https://github.com/addyosmani/web-quality-skills.git"
+      }
+    },
+    "googlechrome": {
+      "source": {
+        "source": "git",
+        "url": "https://github.com/GoogleChrome/modern-web-guidance.git"
+      }
+    },
+    "socraticode": {
+      "source": {
+        "source": "github",
+        "repo": "giancarloerra/socraticode"
+      }
+    },
+    "cerby": {
+      "source": {
+        "source": "git",
+        "url": "https://github.com/sorawit-w/cerby.git"
+      }
+    }
+  },
+  "effortLevel": "high",
+  "theme": "dark-ansi",
+  "inputNeededNotifEnabled": true,
+  "agentPushNotifEnabled": true
+}
